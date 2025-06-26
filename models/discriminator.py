@@ -3,7 +3,7 @@ import torch.nn as nn
 
 class Discriminator(nn.Module):
     def __init__(self, in_channels=3):
-        super.__init__()
+        super().__init__()
         def discriminator_block(in_filters, out_filters, normalize=True):
             layers = [nn.Conv2d(in_filters, out_filters, kernel_size=4, stride=2, padding=1)]
             if normalize:
