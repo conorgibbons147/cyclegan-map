@@ -56,7 +56,7 @@ class Generator(nn.Module):
             # final output layer
             model += [
                 nn.ReflectionPad2d(3),
-                nn.Conv2d(64, out_channels, 7)
+                nn.Conv2d(64, out_channels, 7),
                 nn.Tanh()
             ]
         self.model = nn.Sequential(*model) # the * before model unpacks the list of layers so that pytorch can see each one
