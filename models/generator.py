@@ -41,7 +41,7 @@ class Generator(nn.Module):
             in_features = out_features
             out_features = in_features * 2
         for _ in range(num_residuals):                  # keeps feature map structure/size
-            model += [ResidualBlock(in_features)]d
+            model += [ResidualBlock(in_features)]
         
         # upsampling twice to reverse downsampling
         for _ in range(2):
