@@ -17,7 +17,7 @@ class ResidualBlock(nn.Module):
         return x + self.block(x)
 
 class Generator(nn.Module):
-    def __init__(self, in_channels=3, out_channels=3, num_residuals=9):
+    def __init__(self, in_channels=3, out_channels=3, num_residuals=6):
         super().__init__()
 
         model = [] # list of the layers we add in order
