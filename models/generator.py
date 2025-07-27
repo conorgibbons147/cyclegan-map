@@ -17,7 +17,7 @@ class ResidualBlock(nn.Module):
         return x + self.block(x)
 
 class Generator(nn.Module):
-    def __init__(self, in_channels=3, out_channels=3, num_residuals=9):
+    def __init__(self, in_channels=3, out_channels=3, num_residuals=6):
         super().__init__()
 
         model = [] # list of the layers we add in order
@@ -40,10 +40,12 @@ class Generator(nn.Module):
             ]
             in_features = out_features
             out_features = in_features * 2
+
         for _ in range(num_residuals):                  # keeps feature map structure/size
             model += [ResidualBlock(in_features)]
         
         # upsampling twice to reverse downsampling
+        out_features = in_features // 2
         for _ in range(2):
             model += [
                 nn.ConvTranspose2d(in_features, out_features, kernel_size=3, stride=2, padding=1, output_padding=1),
@@ -54,11 +56,12 @@ class Generator(nn.Module):
             out_features = in_features // 2
 
             # final output layer
-            model += [
-                nn.ReflectionPad2d(3),
-                nn.Conv2d(64, out_channels, 7),
-                nn.Tanh()
+        model += [
+            nn.ReflectionPad2d(3),
+            nn.Conv2d(64, out_channels, 7),
+            nn.Tanh()
             ]
+        
         self.model = nn.Sequential(*model) # the * before model unpacks the list of layers so that pytorch can see each one
 
     def forward(self, x):
