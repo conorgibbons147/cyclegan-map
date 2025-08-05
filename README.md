@@ -1,1 +1,2 @@
 # cyclegan-map
+This repository contains the code for training and testing CycleGAN models for image-to-image translation tasks, specifically for translating the style of modern google map images to give them an older appearance.
